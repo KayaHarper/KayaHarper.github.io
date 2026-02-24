@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaya Harper - PhD Candidate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green:    #7aaa72;
+            --green-dk: #5a8054;
+            --green-lt: #edf4ec;
+            --ink:      #2b2b2b;
+            --muted:    #666;
+            --card:     #f8f9fa;
+            --border:   #e4ede3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--ink);
+            background: url('assetts/photos/IMG_2141.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(90, 90, 90, 0.72);
+            backdrop-filter: blur(6px);
+            color: white;
+            padding: 36px 20px;
+            text-align: center;
+            max-width: 1100px;
+            margin: 20px auto 0;
+            border-radius: 20px 20px 0 0;
+            border: 1px solid rgba(200,200,200,0.4);
+            border-bottom: none;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6em;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            margin-bottom: 6px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header p {
+            opacity: 0.88;
+            font-weight: 300;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+            overflow: hidden;
+        }
+
+        /* NAV */
+        nav {
+            background: rgba(255,255,255,0.99);
+            padding: 14px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; }
+        nav li { margin: 4px 10px; }
+
+        nav a {
+            color: var(--green-dk);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.92em;
+            letter-spacing: 0.04em;
+            padding: 7px 18px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover, nav a.active {
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dk) 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(122,170,114,0.4);
+        }
+
+        /* CONTENT */
+        .content { padding: 48px 48px 56px; animation: fadeIn 0.6s ease; }
+
+        .page { display: none; }
+        .page.active { display: block; }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--green-dk);
+            font-size: 1.9em;
+            font-weight: 600;
+            margin-bottom: 24px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 48px; height: 3px;
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dk) 100%);
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: var(--green-dk);
+            font-size: 1.12em;
+            font-weight: 500;
+            margin: 28px 0 10px;
+            letter-spacing: 0.03em;
+        }
+
+        h4 {
+            color: var(--ink);
+            font-size: 1em;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--card);
+            padding: 22px 24px;
+            margin: 16px 0;
+            border-radius: 10px;
+            border-left: 4px solid var(--green);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateX(4px);
+            box-shadow: 0 5px 20px rgba(122,170,114,0.18);
+        }
+
+        /* HOME */
+        .home-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 52px;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 280px;
+            height: 340px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .profile-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .profile-image:hover { transform: scale(1.02); }
+
+        .bio-block h2 { margin-bottom: 18px; }
+
+        .bio-block p {
+            font-size: 1.02em;
+            color: #3a3a3a;
+            margin-bottom: 14px;
+            line-height: 1.85;
+        }
+
+        /* ABOUT */
+        .interests-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 6px 0 18px;
+        }
+
+        .tag {
+            background: var(--green-lt);
+            color: var(--green-dk);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 0.88em;
+            font-weight: 500;
+        }
+
+        .labs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 12px 0 28px;
+        }
+
+        .lab-card {
+            background: var(--green-lt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px 24px;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .lab-card:hover {
+            box-shadow: 0 6px 24px rgba(90,128,84,0.15);
+            transform: translateY(-3px);
+        }
+
+        .lab-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1em;
+            color: var(--green-dk);
+            margin-bottom: 8px;
+        }
+
+        .lab-card p { font-size: 0.92em; color: var(--muted); margin-bottom: 12px; }
+
+        .lab-link {
+            display: inline-block;
+            color: var(--green-dk);
+            font-size: 0.88em;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px solid var(--green);
+            padding-bottom: 1px;
+            transition: color 0.2s ease;
+        }
+
+        .lab-link:hover { color: var(--green); }
+
+        /* PROJECT CAROUSEL */
+        .project-carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: white;
+            min-height: 130px;
+        }
+
+        .project-slide {
+            display: none;
+            padding: 26px 28px;
+            animation: slideFadeIn 0.5s ease;
+        }
+
+        .project-slide.active { display: block; }
+
+        .project-slide h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15em;
+            color: var(--green-dk);
+            margin-bottom: 8px;
+        }
+
+        .project-slide p { font-size: 0.96em; color: #444; line-height: 1.75; }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 0 14px;
+            background: white;
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .dot.active {
+            background: var(--green);
+            transform: scale(1.3);
+        }
+
+        @keyframes slideFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* EDUCATION */
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 20px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:last-child { border-bottom: none; }
+
+        .timeline-year {
+            color: var(--green);
+            font-weight: 500;
+            font-size: 0.9em;
+            padding-top: 2px;
+        }
+
+        .timeline-body h4 { margin-bottom: 3px; }
+        .timeline-body .inst { color: var(--muted); font-size: 0.92em; }
+        .timeline-body .detail { font-size: 0.92em; color: #555; margin-top: 4px; }
+
+        .mentee-list { list-style: none; margin-top: 8px; }
+        .mentee-list li {
+            font-size: 0.92em;
+            color: #555;
+            padding: 4px 0 4px 18px;
+            position: relative;
+        }
+        .mentee-list li:before {
+            content: '·';
+            position: absolute; left: 4px;
+            color: var(--green);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .awards-list { list-style: none; }
+        .awards-list li {
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.94em;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+        .awards-list li:last-child { border-bottom: none; }
+        .awards-list li:before {
+            content: '◆';
+            color: var(--green);
+            font-size: 0.6em;
+            flex-shrink: 0;
+        }
+
+        /* GALLERY */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.04);
+            box-shadow: 0 10px 28px rgba(122,170,114,0.35);
+        }
+
+        .gallery-item:hover img { transform: scale(1.06); }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-img { max-width: 90%; max-height: 90vh; border-radius: 8px; object-fit: contain; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .lightbox-close { position: fixed; top: 15px; right: 25px; color: white; font-size: 2.5em; cursor: pointer; opacity: 0.8; transition: opacity 0.2s; z-index: 10000; }
+        .lightbox-close:hover { opacity: 1; }
+        .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); color: white; font-size: 2em; cursor: pointer; background: rgba(255,255,255,0.15); padding: 12px 18px; border-radius: 5px; z-index: 10000; user-select: none; transition: background 0.2s; }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.3); }
+        .lightbox-prev { left: 15px; }
+        .lightbox-next { right: 15px; }
+
+        /* GET IN TOUCH */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 10px;
+        }
+
+        .contact-block {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .contact-block h3 { margin-top: 0; margin-bottom: 14px; }
+
+        .contact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.94em;
+        }
+        .contact-row:last-child { border-bottom: none; }
+        .contact-row strong { color: var(--green-dk); min-width: 90px; font-weight: 500; flex-shrink: 0; }
+        .contact-row a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
+        .contact-row a:hover { color: var(--green); }
+
+        .social-links { list-style: none; }
+        .social-links li { margin: 10px 0; }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--green-dk);
+            text-decoration: none;
+            font-size: 0.96em;
+            font-weight: 500;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: var(--green-lt);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .social-links a:hover {
+            background: linear-gradient(135deg, var(--green) 0%, var(--green-dk) 100%);
+            color: white;
+            transform: translateX(6px);
+            border-color: transparent;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--card);
+            color: var(--muted);
+            font-size: 0.88em;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .content { padding: 28px 22px 36px; }
+            .home-layout { grid-template-columns: 1fr; text-align: center; }
+            .profile-image { margin: 0 auto; width: 220px; height: 270px; }
+            .labs-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .timeline-item { grid-template-columns: 90px 1fr; }
+            header h1 { font-size: 1.9em; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Kaya Harper</h1>
+        <p>PhD Candidate &nbsp;&middot;&nbsp; Evolutionary Genomics &nbsp;&middot;&nbsp; Epigenetics &nbsp;&middot;&nbsp; Ecology</p>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#home"      class="nav-link active">Home</a></li>
+                <li><a href="#about"     class="nav-link">About</a></li>
+                <li><a href="#education" class="nav-link">Education &amp; Experience</a></li>
+                <li><a href="#pictures"  class="nav-link">Pictures</a></li>
+                <li><a href="#contact"   class="nav-link">Get in Touch</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+
+            <!-- HOME -->
+            <div id="home" class="page active">
+                <div class="home-layout">
+                    <div class="profile-image">
+                        <img src="assetts/photos/IMG_1160.jpg" alt="Kaya Harper">
+                    </div>
+                    <div class="bio-block">
+                        <h2>Hi, I&rsquo;m Kaya</h2>
+                        <p>My research sits at the intersection of evolutionary biology and human-driven environmental change. I study how environmental variation shapes genomes, epigenetic regulation, and phenotypic plasticity across species and timescales.</p>
+                        <p>Using comparative genomics, next-generation sequencing, and fieldwork in aquatic and terrestrial systems, I investigate how populations adapt, and how resilience or vulnerability emerges, in a rapidly changing world.</p>
+                        <p>Outside the lab, I enjoy running, hiking, scuba diving, and exploring the kinds of dynamic landscapes that continually inspire my work &mdash; preferably with my two dogs, Jax and Nalu.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT -->
+            <div id="about" class="page">
+                <h2>About My Research</h2>
+
+                <h3>Research Interests</h3>
+                <div class="interests-tags">
+                    <span class="tag">Evolutionary Genomics</span>
+                    <span class="tag">Epigenetics</span>
+                    <span class="tag">Population Genetics</span>
+                    <span class="tag">Bioinformatics</span>
+                    <span class="tag">Comparative Genomics</span>
+                    <span class="tag">Conservation Genomics</span>
+                    <span class="tag">Phenotypic Plasticity</span>
+                    <span class="tag">Environmental Adaptation</span>
+                    <span class="tag">Phylogenetics</span>
+                </div>
+
+                <h3>My Labs</h3>
+                <div class="labs-grid">
+                    <div class="lab-card">
+                        <h4>Blackmon Lab</h4>
+                        <p>Evolutionary biology of genome structure, sex chromosome evolution, and karyotype diversification across animals.</p>
+                        <a class="lab-link" href="https://coleoguy.github.io//" target="_blank">blackmon-lab.tamu.edu &rarr;</a>
+                    </div>
+                    <div class="lab-card">
+                        <h4>Keene Lab</h4>
+                        <p>Neurobiology, behavior, and genomics of <em>Astyanax mexicanus</em> cave and surface populations &mdash; sleep, metabolism, and sensory evolution.</p>
+                        <a class="lab-link" href="https://alexckeene.com/" target="_blank">keenelab.com &rarr;</a>
+                    </div>
+                </div>
+
+                <h3>Current Projects</h3>
+                <div class="project-carousel" id="projectCarousel">
+                    <div class="project-slide active">
+                        <h4>Astyanax Epigenetics</h4>
+                        <p>Exploring how ecological conditions shape patterns of DNA methylation across cave and surface populations of <em>Astyanax mexicanus</em>, connecting epigenetic divergence to physiological and behavioral differences.</p>
+                    </div>
+                    <div class="project-slide">
+                        <h4>Transcriptional Plasticity in a Changing Environment</h4>
+                        <p>Investigating how environmental conditions influence gene expression responses and the evolution of plasticity in <em>Astyanax mexicanus</em>, with a focus on starvation response and metabolic regulation.</p>
+                    </div>
+                    <div class="project-slide">
+                        <h4>Genomes and Gene Flow &mdash; <em>Bombus</em></h4>
+                        <p>Studying how environmental gradients and landscape structure affect population connectivity across <em>Bombus</em> bumblebee species in warming sky island habitats, to inform conservation planning.</p>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="carouselDots">
+                    <div class="dot active" data-index="0"></div>
+                    <div class="dot" data-index="1"></div>
+                    <div class="dot" data-index="2"></div>
+                </div>
+            </div>
+
+            <!-- EDUCATION & EXPERIENCE -->
+            <div id="education" class="page">
+                <h2>Education &amp; Experience</h2>
+
+                <h3>Education</h3>
+                <div class="card">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023&nbsp;&ndash;&nbsp;Present</div>
+                        <div class="timeline-body">
+                            <h4>Doctor of Philosophy in Biology</h4>
+                            <p class="inst">Texas A&amp;M University, College Station, TX</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2018&nbsp;&ndash;&nbsp;2022</div>
+                        <div class="timeline-body">
+                            <h4>Honors B.S. in Molecular Biology &mdash; <em>Magna Cum Laude</em></h4>
+                            <p class="inst">Lehigh University, Bethlehem, PA</p>
+                            <p class="detail">Minor in Earth and Environmental Sciences</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Teaching</h3>
+                <div class="card">
+                    <h4>Teaching Assistant &mdash; Department of Biology, Texas A&amp;M University</h4>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2025&nbsp;&ndash;&nbsp;2026</div>
+                        <div class="timeline-body"><p class="detail">Introductory Biology II Lab &nbsp;&middot;&nbsp; 75 students/semester</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Fall 2024</div>
+                        <div class="timeline-body"><p class="detail">Biology Through Film &nbsp;(87 students) &nbsp;&middot;&nbsp; Critical Writing in Biology &nbsp;(75 students)</p></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">Spring 2023</div>
+                        <div class="timeline-body"><p class="detail">Principles of Animal Physiology &nbsp;&middot;&nbsp; 75 students</p></div>
+                    </div>
+                    <div class="timeline-item" style="border-bottom:none">
+                        <div class="timeline-year">Fall 2023</div>
+                        <div class="timeline-body"><p class="detail">Introductory Biology I Lab &nbsp;&middot;&nbsp; 50 students</p></div>
+                    </div>
+                </div>
+
+                <h3>Research Mentorship</h3>
+                <div class="card">
+                    <h4>Research Mentor &mdash; Department of Biology, Texas A&amp;M University</h4>
+                    <ul class="mentee-list">
+                        <li><strong>Meg McConnell</strong> &mdash; Exploring Achiasmy Synthesis</li>
+                        <li><strong>Paige Maxa</strong> &mdash; Exploring Activity Behavior in <em>Tribolium castaneum</em></li>
+                        <li><strong>Kenzie Laird</strong> &mdash; Gene Flow in <em>Bombus</em> Across Warming Sky Islands</li>
+                        <li><strong>Emily Clark</strong> &mdash; Starch Adaptations in <em>Tribolium castaneum</em></li>
+                    </ul>
+                </div>
+
+                <h3>Grants &amp; Fellowships</h3>
+                <div class="card">
+                    <div class="timeline-item">
+                        <div class="timeline-year">$2,500</div>
+                        <div class="timeline-body">
+                            <h4>ESI Graduate Fellow</h4>
+                            <p class="inst">Environment &amp; Sustainability Initiative &mdash; Texas A&amp;M University</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">$6,000</div>
+                        <div class="timeline-body">
+                            <h4>Undergraduate Research Grant</h4>
+                            <p class="inst">Lehigh University &nbsp;&middot;&nbsp; Awarded Fall 2020, Spring 2021, Fall 2021</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">$5,000</div>
+                        <div class="timeline-body">
+                            <h4>Environmental Fellowship</h4>
+                            <p class="inst">Lehigh University &nbsp;&middot;&nbsp; Environment conservation &amp; sustainability project</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" style="border-bottom:none">
+                        <div class="timeline-year">$2,000</div>
+                        <div class="timeline-body">
+                            <h4>Undergraduate Scholar Award</h4>
+                            <p class="inst">Michael E. Family Endowment &nbsp;&middot;&nbsp; Outstanding research scholars in Biology honors</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Service</h3>
+                <div class="card">
+                    <ul class="awards-list">
+                        <li>Panelist &mdash; Neuroscience Meets Economics Symposium, Texas A&amp;M University</li>
+                        <li>Organiser &mdash; Darwin Day Fair, Texas A&amp;M University</li>
+                        <li>Board Member &mdash; Biological Outreach Committee, Texas A&amp;M University</li>
+                        <li>Graphic Designer &mdash; EEB Recruitment Fair, Texas A&amp;M University</li>
+                        <li>Event Volunteer &mdash; PRIDE Community Center, Bryan, TX</li>
+                        <li>Event Volunteer &mdash; Lehigh University Pride Center, Bethlehem, PA</li>
+                        <li>Field Guide &amp; Outdoor Educator &mdash; Wild Kids Hawai&lsquo;i, Oahu, HI</li>
+                    </ul>
+                </div>
+
+                <h3>Honors, Awards &amp; Certifications</h3>
+                <div class="card">
+                    <ul class="awards-list">
+                        <li>First Year Biology Department Scholarship &mdash; Texas A&amp;M University</li>
+                        <li>Michael E. Family Undergraduate Scholar Award &mdash; Lehigh University</li>
+                        <li>Biology Department Honors &mdash; Lehigh University</li>
+                        <li>Dean&rsquo;s List Recipient &mdash; Lehigh University</li>
+                        <li>Magna Cum Laude &mdash; Lehigh University</li>
+                        <li>NOLS Wilderness First Aid Certified</li>
+                        <li>PADI Open Water Certified</li>
+                        <li>CPR / Epinephrine Administration</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- PICTURES -->
+            <div id="pictures" class="page">
+                <h2>Pictures</h2>
+                <p style="color:var(--muted); margin-bottom:4px">A collection of photos from fieldwork, research, and adventures.</p>
+
+                <div class="gallery">
+                    <div class="gallery-item"><img src="pictures/20D32C5E-27F2-4D58-92BF-E585387AB102.JPEG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/2EC8F916-6DED-4D99-99D4-948740E604C2.JPEG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/83BB2F6E-B787-44FE-B538-281467EED60F.JPEG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/A30E136B-41C8-422B-A7D0-6ED6EFBB5FFE.JPEG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/B997315B-A08B-41E4-9DCC-127A440018B2.JPEG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_1160.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_1839.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_1843.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_1863.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_1882.JPG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_2141.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_2154.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_2161.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_2248.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_2273.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_2275.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_3079.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_3092.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_3098.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_3345.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_3740.JPG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_3754.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4752.HEIC" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4784.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4801.HEIC" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4804.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4806.HEIC" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4847.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4899.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_4921.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6279.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6289.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6299.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6304.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6311.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6315.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6348.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6356.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6426.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6432.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6440.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6442.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6448.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_6460.jpg" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_7283.PNG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_7284.PNG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                    <div class="gallery-item"><img src="pictures/IMG_9300.JPG" alt="" onerror="this.parentElement.style.display='none'"></div>
+                </div>
+            </div>
+
+            <!-- GET IN TOUCH -->
+            <div id="contact" class="page">
+                <h2>Get in Touch</h2>
+
+                <div class="contact-grid">
+                    <div class="contact-block">
+                        <h3>Contact</h3>
+                        <div class="contact-row">
+                            <strong>Email</strong>
+                            <a href="mailto:kayaharper@tamu.edu">kayaharper@tamu.edu</a>
+                        </div>
+                        <div class="contact-row">
+                            <strong>Phone</strong>
+                            <span>+1 (808) 393-8490</span>
+                        </div>
+                        <div class="contact-row">
+                            <strong>Department</strong>
+                            <span>Department of Biology, Texas A&amp;M University</span>
+                        </div>
+                        <div class="contact-row">
+                            <strong>Location</strong>
+                            <span>College Station, TX 77843</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-block">
+                        <h3>Find Me Online</h3>
+                        <ul class="social-links">
+                            <li><a href="https://www.linkedin.com/in/kaya-harper-a69458183/" target="_blank">LinkedIn</a></li>
+                            <li><a href="https://bsky.app/profile/kayaharper.bsky.social" target="_blank">BlueSky</a></li>
+                            <li><a href="https://github.com/KayaHarper" target="_blank">GitHub</a></li>
+                            <li><a href="https://scholar.google.com/citations?hl=en&user=StSZmZUAAAAJ" target="_blank">Google Scholar</a></li>
+                            <li><a href="https://artsci.tamu.edu/biology/academics/graduate/biology-phd.html" target="_blank">Texas A&amp;M Biology Dept.</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- .content -->
+
+        <footer>
+            <p>&copy; 2026 Kaya Harper &nbsp;&middot;&nbsp; Last updated February 2026</p>
+        </footer>
+    </div><!-- .container -->
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <span class="lightbox-nav lightbox-prev" id="lightbox-prev">&#8249;</span>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="">
+        <span class="lightbox-nav lightbox-next" id="lightbox-next">&#8250;</span>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages    = document.querySelectorAll('.page');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                const target = document.getElementById(this.getAttribute('href').substring(1));
+                if (target) target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Project Carousel — auto-rotates every 6 seconds
+        const slides = document.querySelectorAll('.project-slide');
+        const dots   = document.querySelectorAll('.carousel-dots .dot');
+        let current  = 0;
+        let carouselTimer;
+
+        function goTo(idx) {
+            slides[current].classList.remove('active');
+            dots[current].classList.remove('active');
+            current = idx;
+            slides[current].classList.add('active');
+            dots[current].classList.add('active');
+        }
+
+        function next() { goTo((current + 1) % slides.length); }
+
+        function startTimer() { carouselTimer = setInterval(next, 6000); }
+        function resetTimer()  { clearInterval(carouselTimer); startTimer(); }
+
+        startTimer();
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', function () {
+                goTo(parseInt(this.dataset.index));
+                resetTimer();
+            });
+        });
+
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) clearInterval(carouselTimer);
+            else startTimer();
+        });
+
+        // Lightbox
+        const lightbox      = document.getElementById('lightbox');
+        const lightboxImg   = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev  = document.getElementById('lightbox-prev');
+        const lightboxNext  = document.getElementById('lightbox-next');
+        let currentImages   = [];
+        let currentIndex    = 0;
+
+        function getVisibleImages() {
+            return Array.from(document.querySelectorAll('.gallery-item img'))
+                .filter(img => img.parentElement.style.display !== 'none' && img.complete && img.naturalWidth > 0);
+        }
+
+        function openLightbox(index) {
+            currentImages = getVisibleImages();
+            if (!currentImages.length) return;
+            currentIndex = index;
+            lightboxImg.src = currentImages[currentIndex].src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showPrev() {
+            currentImages = getVisibleImages();
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            lightboxImg.src = currentImages[currentIndex].src;
+        }
+
+        function showNext() {
+            currentImages = getVisibleImages();
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            lightboxImg.src = currentImages[currentIndex].src;
+        }
+
+        document.querySelector('.gallery').addEventListener('click', function (e) {
+            const item = e.target.closest('.gallery-item');
+            if (!item) return;
+            const img = item.querySelector('img');
+            if (!img || !img.complete || img.naturalWidth === 0) return;
+            const idx = getVisibleImages().indexOf(img);
+            if (idx !== -1) openLightbox(idx);
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', showPrev);
+        lightboxNext.addEventListener('click', showNext);
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+        document.addEventListener('keydown', e => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape')     closeLightbox();
+            if (e.key === 'ArrowLeft')  showPrev();
+            if (e.key === 'ArrowRight') showNext();
+        });
+
+    });
+    </script>
+</body>
+</html>
