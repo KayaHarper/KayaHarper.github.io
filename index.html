@@ -874,10 +874,13 @@
         let currentImages   = [];
         let currentIndex    = 0;
 
-        function getVisibleImages() {
-            return Array.from(document.querySelectorAll('.gallery-item img'))
-                .filter(img => img.parentElement.style.display !== 'none' && img.complete && img.naturalWidth > 0);
-        }
+       
+function getVisibleImages() {
+    return Array.from(
+        document.querySelectorAll('.gallery-item img')
+    ).filter(img => img.parentElement.style.display !== 'none');
+}
+
 
         function openLightbox(index) {
             currentImages = getVisibleImages();
